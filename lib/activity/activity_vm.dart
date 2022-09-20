@@ -32,11 +32,10 @@ class ActivityViewModel extends BaseViewModel{
   }
 
   onStream(){
-    setBusy(true);
     activityStreamSubscription = activityRecognition
         .activityStream(runForegroundService: true)
         .listen(onData, onError: onError);
-        setBusy(false);
+        
   }
 
   void onData(ActivityEvent activityEvent) {
@@ -48,6 +47,27 @@ class ActivityViewModel extends BaseViewModel{
 
   void onError(Object error) {
     debugPrint('ERROR - $error');
+  }
+
+  Text activityText(ActivityType type){
+    switch (type) {
+      case ActivityType.WALKING:
+        return const Text('Walking');
+      case ActivityType.IN_VEHICLE:
+        return const Text('Driving');
+      case ActivityType.ON_BICYCLE:
+        return const Text('Drivingg');
+      case ActivityType.ON_FOOT:
+        return const Text('Walking');
+      case ActivityType.RUNNING:
+        return const Text('Running');
+      case ActivityType.STILL:
+        return const Text('Still');
+      case ActivityType.TILTING:
+        return const Text('Phone titling');
+      default:
+        return const Text('UNKNOWN');
+    }
   }
 
   Icon activityIcon(ActivityType type) {

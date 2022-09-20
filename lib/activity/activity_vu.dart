@@ -20,11 +20,12 @@ class ActivityScreen extends ViewModelBuilderWidget<ActivityViewModel> {
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     viewModel.activityIcon(viewModel.event.type),
+                    viewModel.activityText(viewModel.event.type),
                     Text(
-                            '${viewModel.event.type.toString().split('.').last} (${viewModel.event.confidence}%)'),
-                    const Spacer(),
+                            'Confidence: ${viewModel.event.confidence}%'),
                     Text(viewModel.event.timeStamp
                             .toString()
                             .split(' ')

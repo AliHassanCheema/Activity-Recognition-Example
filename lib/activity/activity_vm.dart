@@ -32,9 +32,11 @@ class ActivityViewModel extends BaseViewModel{
   }
 
   onStream(){
+    setBusy(true);
     activityStreamSubscription = activityRecognition
         .activityStream(runForegroundService: true)
         .listen(onData, onError: onError);
+        setBusy(false);
   }
 
   void onData(ActivityEvent activityEvent) {

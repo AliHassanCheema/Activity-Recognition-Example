@@ -12,7 +12,7 @@ class ActivityScreen extends ViewModelBuilderWidget<ActivityViewModel> {
           title: const Text('Activity Recognition'),
         ),
         body: Center(
-          child: 
+          child: viewModel.isBusy ? const CircularProgressIndicator(color: Colors.green,):
 
           Padding(
             padding: const EdgeInsets.all(28.0),

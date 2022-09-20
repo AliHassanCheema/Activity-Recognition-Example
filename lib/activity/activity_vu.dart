@@ -12,23 +12,48 @@ class ActivityScreen extends ViewModelBuilderWidget<ActivityViewModel> {
           title: const Text('Activity Recognition'),
         ),
         body: Center(
-          child: ListView.builder(
-              itemCount: viewModel.events.length,
-              reverse: true,
-              itemBuilder: (_, int idx) {
-                final activity = viewModel.events[idx];
-                return ListTile(
-                  leading: viewModel.activityIcon(activity.type),
-                  title: Text(
-                      '${activity.type.toString().split('.').last} (${activity.confidence}%)'),
-                  trailing: Text(activity.timeStamp
-                      .toString()
-                      .split(' ')
-                      .last
-                      .split('.')
-                      .first),
-                );
-              }),
+          child: 
+
+          Padding(
+            padding: const EdgeInsets.all(28.0),
+            child: Card(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    viewModel.activityIcon(viewModel.event.type),
+                    Text(
+                            '${viewModel.event.type.toString().split('.').last} (${viewModel.event.confidence}%)'),
+                    const Spacer(),
+                    Text(viewModel.event.timeStamp
+                            .toString()
+                            .split(' ')
+                            .last
+                            .split('.')
+                            .first),
+                  ],
+                ),
+              ),
+            ),
+          )
+          
+          // ListView.builder(
+          //     itemCount: viewModel.events.length,
+          //     reverse: true,
+          //     itemBuilder: (_, int idx) {
+          //       final activity = viewModel.events[idx];
+          //       return ListTile(
+          //         leading: viewModel.activityIcon(activity.type),
+          //         title: Text(
+          //             '${activity.type.toString().split('.').last} (${activity.confidence}%)'),
+          //         trailing: Text(activity.timeStamp
+          //             .toString()
+          //             .split(' ')
+          //             .last
+          //             .split('.')
+          //             .first),
+          //       );
+          //     }),
         ),
       
     );

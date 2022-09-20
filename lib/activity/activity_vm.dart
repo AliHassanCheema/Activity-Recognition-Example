@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 class ActivityViewModel extends BaseViewModel{
   StreamSubscription<ActivityEvent>? activityStreamSubscription;
   final List<ActivityEvent> events = [];
+  ActivityEvent event = ActivityEvent(ActivityType.UNKNOWN, 90);
   ActivityRecognition activityRecognition = ActivityRecognition();
 
 
@@ -18,9 +19,13 @@ class ActivityViewModel extends BaseViewModel{
   void startTracking() async{
     if (Platform.isAndroid) {
       if (await Permission.activityRecognition.request().isGranted) {
-        onStream();
+        await onStream();
+        events.add(ActivityEvent.unknown());
+        notifyListeners();
       }else{
-        onStream();
+       await onStream();
+       events.add(ActivityEvent.unknown());
+       notifyListeners();
       }
     }
     
@@ -34,6 +39,7 @@ class ActivityViewModel extends BaseViewModel{
 
   void onData(ActivityEvent activityEvent) {
     debugPrint(activityEvent.toString());
+    event = activityEvent;
       events.add(activityEvent);
       notifyListeners();
   }
